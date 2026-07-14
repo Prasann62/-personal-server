@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Training Tracker</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#c1440e">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Tracker">
+</head>
+<body>
+    <header>
+        <h1>Training Tracker</h1>
+    </header>
+
+    <nav>
+        <button class="nav-btn active" data-target="home">Home</button>
+        <button class="nav-btn" data-target="log">Log Day</button>
+        <button class="nav-btn" data-target="history">History</button>
+        <button class="nav-btn" data-target="records">Records</button>
+    </nav>
+
+    <main>
+        <!-- Home Section -->
+        <section id="home" class="view active">
+            <h2>Dashboard</h2>
+            
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <h3>Current Weight</h3>
+                    <p id="current-weight">-- kg</p>
+                    <small id="weight-change">7-day: -- kg</small>
+                </div>
+                <div class="stat-card">
+                    <h3>Logging Streak</h3>
+                    <p id="logging-streak">0 days</p>
+                    <small>Consecutive</small>
+                </div>
+                <div class="stat-card">
+                    <h3>Total Entries</h3>
+                    <p id="total-entries">0</p>
+                    <small>All time</small>
+                </div>
+            </div>
+
+            <div class="recent-entries">
+                <h3>Recent Entries</h3>
+                <ul id="recent-list" class="entry-list">
+                    <!-- Populated by JS -->
+                </ul>
+            </div>
+            
+            <div class="settings-card">
+                <h3>Settings</h3>
+                <div class="reminder-settings">
+                    <label for="reminder-time">Daily Reminder Time:</label>
+                    <input type="time" id="reminder-time" value="18:00">
+                    <button id="enable-reminder" class="btn primary full-width" style="margin-top: 10px;">Enable Daily Reminder</button>
+                </div>
+                <div class="data-actions">
+                    <button id="export-btn" class="btn secondary">Export Data</button>
+                    <label class="btn secondary file-upload" style="text-align: center;">
+                        Import Data
+                        <input type="file" id="import-file" accept=".json" style="display: none;">
+                    </label>
+                </div>
+            </div>
+        </section>
+
+        <!-- Log Day Section -->
+        <section id="log" class="view">
+            <h2>Log Today's Training</h2>
+            <form id="log-form">
+                <div class="form-group">
+                    <label for="log-date">Date</label>
+                    <input type="date" id="log-date" required>
+                </div>
+                <div class="form-group">
+                    <label for="log-weight">Weight (kg) - Optional</label>
+                    <input type="number" step="0.1" id="log-weight" placeholder="e.g. 70.5">
+                </div>
+                <div class="form-group">
+                    <label for="log-type">Session Type</label>
+                    <select id="log-type" required>
+                        <option value="easy run">Easy Run</option>
+                        <option value="interval run">Interval Run</option>
+                        <option value="endurance run">Endurance Run</option>
+                        <option value="calisthenics">Calisthenics</option>
+                        <option value="mixed+dumbbell">Mixed + Dumbbell</option>
+                        <option value="rest">Rest</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="log-distance">Distance (km) - Optional</label>
+                    <input type="number" step="0.01" id="log-distance" placeholder="e.g. 5.0">
+                </div>
+                <div class="form-group">
+                    <label for="log-time">Time (min) - Optional</label>
+                    <input type="number" step="0.1" id="log-time" placeholder="e.g. 30">
+                </div>
+                <div class="form-group">
+                    <label for="log-notes">Notes</label>
+                    <textarea id="log-notes" rows="3" placeholder="How did it feel?"></textarea>
+                </div>
+                <button type="submit" class="btn primary full-width">Save Entry</button>
+            </form>
+        </section>
+
+        <!-- History Section -->
+        <section id="history" class="view">
+            <h2>Training History</h2>
+            <div class="table-container">
+                <table id="history-table">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Type</th>
+                            <th>Dist (km)</th>
+                            <th>Time (min)</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="history-tbody">
+                        <!-- Populated by JS -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Records Section -->
+        <section id="records" class="view">
+            <h2>Personal Bests</h2>
+            <p class="subtitle">Compare with Men's Indian National Records</p>
+            
+            <form id="record-form" class="record-form">
+                <div class="form-group row-group">
+                    <select id="record-distance" required>
+                        <option value="100m">100m</option>
+                        <option value="200m">200m</option>
+                        <option value="400m">400m</option>
+                        <option value="800m">800m</option>
+                        <option value="1500m">1500m</option>
+                        <option value="5000m">5000m</option>
+                        <option value="10000m">10000m</option>
+                    </select>
+                    <input type="text" id="record-time" placeholder="mm:ss or seconds" required>
+                    <button type="submit" class="btn primary">Update</button>
+                </div>
+            </form>
+
+            <div id="records-list" class="records-list">
+                <!-- Populated by JS -->
+            </div>
+        </section>
+    </main>
+    
+    <div id="toast" class="toast"></div>
+
+    <script src="app.js"></script>
+</body>
+</html>

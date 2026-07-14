@@ -1,0 +1,17 @@
+{
+    "name": "Personal Training Tracker",
+    "short_name": "Tracker",
+    "description": "A daily training log and personal best tracker for runners.",
+    "start_url": "./index.html",
+    "display": "standalone",
+    "background_color": "#f9f9f9",
+    "theme_color": "#c1440e",
+    "icons": [
+        {
+            "src": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0iI2MxNDQwZSI+PHBhdGggZD0iTTEzLjUgNS41Yy44MyAwIDEuNS0uNjcgMS41LTEuNVMxNC4zMyAyLjUgMTMuNSAyLjUgMTIgMy4xNyAxMiA0czLjY3IDEuNSAxLjUgMS41ek0xNSAxNS41bDIuNSAyLjNWMjRINTF2LTUuNWwtMi4zLTIuM3YtMy40bDItLjYgMS40IDEuNWMtLjQuOC0xIDEuNS0xLjYgMS45TDExLjUgMjA4em0tNy0zLjVMMiA5di0yaDMuM2wxLjcgMS40TDExIDd2LTJjMC0xLjEtLjktMi0yLTJINi41QzUuMSAzIDQgNC4xIDQgNS41UzUuMSA4IDYuNSA4SDdWNi41Yy0uNiAwLTEuMS0uNC0xLjEtMWgwem0xMy0zYzEuMSAwIDItLjkgMi0ydjJIMjBsLTEuNy0xLjRMMTQgOS40di0yLjV6Ii8+PC9zdmc+",
+            "sizes": "512x512",
+            "type": "image/svg+xml",
+            "purpose": "any maskable"
+        }
+    ]
+}
