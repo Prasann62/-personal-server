@@ -1,4 +1,4 @@
-const CACHE_NAME = 'training-tracker-v1';
+const CACHE_NAME = 'training-tracker-v3';
 const ASSETS = [
     './',
     './index.html',
@@ -27,21 +27,22 @@ self.addEventListener('activate', event => {
 });
 
 self.addEventListener('fetch', event => {
+    if (event.request.method !== 'GET') return;
+    
     event.respondWith(
-        caches.match(event.request)
-            .then(response => {
-                return response || fetch(event.request).then(fetchRes => {
-                    return caches.open(CACHE_NAME).then(cache => {
-                        cache.put(event.request, fetchRes.clone());
-                        return fetchRes;
-                    });
+        caches.match(event.request).then(cachedResponse => {
+            const fetchPromise = fetch(event.request).then(networkResponse => {
+                caches.open(CACHE_NAME).then(cache => {
+                    cache.put(event.request, networkResponse.clone());
                 });
+                return networkResponse;
             }).catch(() => {
-                // If offline and request fails, try serving index.html for navigation
                 if (event.request.mode === 'navigate') {
                     return caches.match('./index.html');
                 }
-            })
+            });
+            return cachedResponse || fetchPromise;
+        })
     );
 });
 
