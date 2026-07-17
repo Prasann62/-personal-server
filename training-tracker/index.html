@@ -21,6 +21,7 @@
         <button class="nav-btn" data-target="log">Log Day</button>
         <button class="nav-btn" data-target="history">History</button>
         <button class="nav-btn" data-target="records">Records</button>
+        <button class="nav-btn" data-target="routines">Routines</button>
         <button class="nav-btn" data-target="calculator">Calc</button>
     </nav>
 
@@ -91,6 +92,11 @@
                         <option value="endurance run">Endurance Run</option>
                         <option value="calisthenics">Calisthenics</option>
                         <option value="mixed+dumbbell">Mixed + Dumbbell</option>
+                        <option value="kettlebell - chest">Kettlebell - Chest</option>
+                        <option value="kettlebell - back 1">Kettlebell - Back 1</option>
+                        <option value="kettlebell - back 2">Kettlebell - Back 2</option>
+                        <option value="kettlebell - legs">Kettlebell - Legs</option>
+                        <option value="kettlebell - shoulders">Kettlebell - Shoulders/Arms</option>
                         <option value="rest">Rest</option>
                     </select>
                 </div>
@@ -157,6 +163,64 @@
             </div>
         </section>
 
+        <!-- Routines Section -->
+        <section id="routines" class="view">
+            <h2>Kettlebell Bro Split</h2>
+            <p class="subtitle">Weekly routine focused on muscle groups (2 Days Back)</p>
+            
+            <div class="settings-card" style="margin-top: 0; margin-bottom: 1rem;">
+                <h3 style="color: var(--primary);">Day 1: Chest & Core</h3>
+                <ul class="entry-list" style="margin-top: 0.5rem; margin-bottom: 0;">
+                    <li style="padding: 0.75rem;">KB Floor Press (3x10)</li>
+                    <li style="padding: 0.75rem;">KB Push-ups (3xMax)</li>
+                    <li style="padding: 0.75rem;">KB Pullovers (3x12)</li>
+                </ul>
+            </div>
+            
+            <div class="settings-card" style="margin-top: 0; margin-bottom: 1rem;">
+                <h3 style="color: var(--primary);">Day 2: Back 1 (Heavy)</h3>
+                <ul class="entry-list" style="margin-top: 0.5rem; margin-bottom: 0;">
+                    <li style="padding: 0.75rem;">Heavy KB Rows (4x8/arm)</li>
+                    <li style="padding: 0.75rem;">KB Deadlifts (4x10)</li>
+                    <li style="padding: 0.75rem;">Renegade Rows (3x8/arm)</li>
+                </ul>
+            </div>
+            
+            <div class="settings-card" style="margin-top: 0; margin-bottom: 1rem;">
+                <h3 style="color: var(--primary);">Day 3: Legs</h3>
+                <ul class="entry-list" style="margin-top: 0.5rem; margin-bottom: 0;">
+                    <li style="padding: 0.75rem;">Goblet Squats (4x12)</li>
+                    <li style="padding: 0.75rem;">KB Romanian Deadlifts (4x10)</li>
+                    <li style="padding: 0.75rem;">KB Walking Lunges (3x10/leg)</li>
+                </ul>
+            </div>
+            
+            <div class="settings-card" style="margin-top: 0; margin-bottom: 1rem;">
+                <h3 style="color: var(--primary);">Day 4: Shoulders & Arms</h3>
+                <ul class="entry-list" style="margin-top: 0.5rem; margin-bottom: 0;">
+                    <li style="padding: 0.75rem;">KB Overhead Press (3x10/arm)</li>
+                    <li style="padding: 0.75rem;">KB Halos (3x10/dir)</li>
+                    <li style="padding: 0.75rem;">KB Curls & Overhead Tricep Ext (3x12)</li>
+                </ul>
+            </div>
+            
+            <div class="settings-card" style="margin-top: 0; margin-bottom: 1rem;">
+                <h3 style="color: var(--primary);">Day 5: Back 2 (Explosive/Volume)</h3>
+                <ul class="entry-list" style="margin-top: 0.5rem; margin-bottom: 0;">
+                    <li style="padding: 0.75rem;">KB Swings (4x15-20)</li>
+                    <li style="padding: 0.75rem;">KB High Pulls (3x12/arm)</li>
+                    <li style="padding: 0.75rem;">KB Clean (3x8/arm)</li>
+                </ul>
+            </div>
+            
+            <div class="settings-card" style="margin-top: 0; margin-bottom: 1rem; background: #eef;">
+                <h3 style="color: #333;">Day 6 & 7: Rest / Cardio</h3>
+                <p style="font-size: 0.9rem; margin-top: 0.5rem; color: var(--text-muted);">
+                    Use these days for Easy Runs, stretching, or full rest to recover.
+                </p>
+            </div>
+        </section>
+
         <!-- Calculator Section -->
         <section id="calculator" class="view">
             <h2>Calorie Calculator</h2>
@@ -200,6 +264,7 @@
                             <option value="endurance run">Endurance Run (~10-12 km/h)</option>
                             <option value="calisthenics">Calisthenics (Vigorous)</option>
                             <option value="mixed+dumbbell">Mixed + Dumbbell</option>
+                            <option value="kettlebell">Kettlebell Training (Vigorous)</option>
                         </select>
                     </div>
                     <div class="form-group row-group">

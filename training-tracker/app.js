@@ -169,7 +169,8 @@ function setupForms() {
                 'interval run': 11.0,
                 'endurance run': 9.8,
                 'calisthenics': 8.0,
-                'mixed+dumbbell': 6.0
+                'mixed+dumbbell': 6.0,
+                'kettlebell': 8.0
             };
             
             const met = metValues[type] || 8.0;
