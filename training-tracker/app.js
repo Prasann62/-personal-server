@@ -2,6 +2,7 @@
 let trainingEntries = JSON.parse(localStorage.getItem('trainingEntries')) || [];
 let personalBests = JSON.parse(localStorage.getItem('personalBests')) || {};
 let reminderSettings = JSON.parse(localStorage.getItem('reminderSettings')) || { time: '18:00', enabled: false };
+let currentTDEE = null;
 
 // Men's Indian National Records (in seconds)
 const NATIONAL_RECORDS = {
@@ -139,6 +140,7 @@ function setupForms() {
             bmr += (gender === 'male') ? 5 : -161;
             
             const tdee = bmr * activity;
+            currentTDEE = tdee;
             
             const resultBox = document.getElementById('tdee-result');
             resultBox.style.display = 'block';
@@ -184,6 +186,42 @@ function setupForms() {
                 <p style="font-size: 1.5rem; font-weight: bold;">${Math.round(caloriesBurned)} <span style="font-size: 1rem; font-weight: normal; color: var(--text-muted);">kcal</span></p>
                 <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.2rem;">Based on a MET value of ${met}</p>
             `;
+        });
+    }
+
+    const mealForm = document.getElementById('meal-form');
+    if (mealForm) {
+        mealForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const morning = parseFloat(document.getElementById('meal-morning').value) || 0;
+            const afternoon = parseFloat(document.getElementById('meal-afternoon').value) || 0;
+            const dinner = parseFloat(document.getElementById('meal-dinner').value) || 0;
+            const snacks = parseFloat(document.getElementById('meal-snacks').value) || 0;
+            
+            const total = morning + afternoon + dinner + snacks;
+            
+            const resultBox = document.getElementById('meal-result');
+            resultBox.style.display = 'block';
+            
+            let comparisonHTML = '';
+            if (currentTDEE) {
+                const diff = currentTDEE - total;
+                if (diff > 0) {
+                    comparisonHTML = \`<p style="font-size: 0.85rem; color: #10b981; margin-top: 0.2rem;">You are in a \${Math.round(diff)} kcal deficit.</p>\`;
+                } else if (diff < 0) {
+                    comparisonHTML = \`<p style="font-size: 0.85rem; color: #ef4444; margin-top: 0.2rem;">You are in a \${Math.round(Math.abs(diff))} kcal surplus.</p>\`;
+                } else {
+                    comparisonHTML = \`<p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.2rem;">You are exactly at maintenance.</p>\`;
+                }
+            } else {
+                comparisonHTML = \`<p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.2rem;">Calculate TDEE above to see deficit/surplus.</p>\`;
+            }
+            
+            resultBox.innerHTML = \`
+                <h4 style="color:var(--primary); margin-bottom: 0.5rem;">Total Consumed:</h4>
+                <p style="font-size: 1.5rem; font-weight: bold;">\${Math.round(total)} <span style="font-size: 1rem; font-weight: normal; color: var(--text-muted);">kcal</span></p>
+                \${comparisonHTML}
+            \`;
         });
     }
 }

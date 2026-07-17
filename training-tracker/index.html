@@ -276,6 +276,24 @@
                 <div id="burn-result" class="result-box" style="display: none; margin-top: 1rem; padding: 1rem; background: var(--bg); border-radius: 8px;">
                 </div>
             </div>
+
+            <div class="settings-card" style="margin-top: 1.5rem;">
+                <h3>Meal Calorie Calculator</h3>
+                <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.2rem;">Quickly add up your daily meal calories.</p>
+                <form id="meal-form" style="margin-top: 1rem;">
+                    <div class="form-group row-group">
+                        <input type="number" id="meal-morning" placeholder="Morning (kcal)">
+                        <input type="number" id="meal-afternoon" placeholder="Afternoon (kcal)">
+                    </div>
+                    <div class="form-group row-group">
+                        <input type="number" id="meal-dinner" placeholder="Dinner (kcal)">
+                        <input type="number" id="meal-snacks" placeholder="Snacks (kcal)">
+                    </div>
+                    <button type="submit" class="btn primary full-width">Calculate Total</button>
+                </form>
+                <div id="meal-result" class="result-box" style="display: none; margin-top: 1rem; padding: 1rem; background: var(--bg); border-radius: 8px;">
+                </div>
+            </div>
         </section>
     </main>
     
