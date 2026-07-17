@@ -21,6 +21,7 @@
         <button class="nav-btn" data-target="log">Log Day</button>
         <button class="nav-btn" data-target="history">History</button>
         <button class="nav-btn" data-target="records">Records</button>
+        <button class="nav-btn" data-target="calculator">Calc</button>
     </nav>
 
     <main>
@@ -153,6 +154,62 @@
 
             <div id="records-list" class="records-list">
                 <!-- Populated by JS -->
+            </div>
+        </section>
+
+        <!-- Calculator Section -->
+        <section id="calculator" class="view">
+            <h2>Calorie Calculator</h2>
+            
+            <div class="settings-card" style="margin-top: 0; margin-bottom: 1.5rem;">
+                <h3>Daily Calorie Needs (TDEE)</h3>
+                <form id="tdee-form" style="margin-top: 1rem;">
+                    <div class="form-group row-group">
+                        <select id="tdee-gender" required>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                        </select>
+                        <input type="number" id="tdee-age" placeholder="Age" required>
+                    </div>
+                    <div class="form-group row-group">
+                        <input type="number" step="0.1" id="tdee-weight" placeholder="Weight (kg)" required>
+                        <input type="number" step="0.1" id="tdee-height" placeholder="Height (cm)" required>
+                    </div>
+                    <div class="form-group">
+                        <select id="tdee-activity" required>
+                            <option value="1.2">Sedentary (office job)</option>
+                            <option value="1.375">Light Exercise (1-2 days/week)</option>
+                            <option value="1.55" selected>Moderate Exercise (3-5 days/week)</option>
+                            <option value="1.725">Heavy Exercise (6-7 days/week)</option>
+                            <option value="1.9">Athlete (2x per day)</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn primary full-width">Calculate TDEE</button>
+                </form>
+                <div id="tdee-result" class="result-box" style="display: none; margin-top: 1rem; padding: 1rem; background: var(--bg); border-radius: 8px;">
+                </div>
+            </div>
+
+            <div class="settings-card" style="margin-top: 0;">
+                <h3>Calories Burned Estimator</h3>
+                <form id="burn-form" style="margin-top: 1rem;">
+                    <div class="form-group">
+                        <select id="burn-type" required>
+                            <option value="easy run">Easy Run (~8 km/h)</option>
+                            <option value="interval run">Interval Run (High Intensity)</option>
+                            <option value="endurance run">Endurance Run (~10-12 km/h)</option>
+                            <option value="calisthenics">Calisthenics (Vigorous)</option>
+                            <option value="mixed+dumbbell">Mixed + Dumbbell</option>
+                        </select>
+                    </div>
+                    <div class="form-group row-group">
+                        <input type="number" step="0.1" id="burn-weight" placeholder="Weight (kg)" required>
+                        <input type="number" step="1" id="burn-time" placeholder="Time (min)" required>
+                    </div>
+                    <button type="submit" class="btn primary full-width">Calculate Burn</button>
+                </form>
+                <div id="burn-result" class="result-box" style="display: none; margin-top: 1rem; padding: 1rem; background: var(--bg); border-radius: 8px;">
+                </div>
             </div>
         </section>
     </main>

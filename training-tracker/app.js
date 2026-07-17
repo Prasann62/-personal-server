@@ -70,6 +70,7 @@ function setupNavigation() {
             if(targetId === 'home') renderDashboard();
             if(targetId === 'history') renderHistory();
             if(targetId === 'records') renderRecords();
+            if(targetId === 'calculator') renderCalculator();
         });
     });
 }
@@ -122,6 +123,68 @@ function setupForms() {
         showToast(`Record updated for ${distance}`);
         document.getElementById('record-time').value = '';
     });
+
+    const tdeeForm = document.getElementById('tdee-form');
+    if (tdeeForm) {
+        tdeeForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const gender = document.getElementById('tdee-gender').value;
+            const age = parseInt(document.getElementById('tdee-age').value);
+            const weight = parseFloat(document.getElementById('tdee-weight').value);
+            const height = parseFloat(document.getElementById('tdee-height').value);
+            const activity = parseFloat(document.getElementById('tdee-activity').value);
+            
+            // Mifflin-St Jeor Equation
+            let bmr = (10 * weight) + (6.25 * height) - (5 * age);
+            bmr += (gender === 'male') ? 5 : -161;
+            
+            const tdee = bmr * activity;
+            
+            const resultBox = document.getElementById('tdee-result');
+            resultBox.style.display = 'block';
+            resultBox.innerHTML = `
+                <h4 style="color:var(--primary); margin-bottom: 0.5rem;">Results:</h4>
+                <p><strong>BMR:</strong> ${Math.round(bmr)} kcal/day</p>
+                <p><strong>Maintenance (TDEE):</strong> ${Math.round(tdee)} kcal/day</p>
+                <hr style="margin: 0.5rem 0; border: none; border-top: 1px solid var(--border);">
+                <p style="font-size: 0.85rem; color: var(--text-muted);">
+                    To lose weight (0.5kg/week): ~${Math.round(tdee - 500)} kcal/day<br>
+                    To gain muscle (0.25kg/week): ~${Math.round(tdee + 250)} kcal/day
+                </p>
+            `;
+        });
+    }
+
+    const burnForm = document.getElementById('burn-form');
+    if (burnForm) {
+        burnForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const type = document.getElementById('burn-type').value;
+            const weight = parseFloat(document.getElementById('burn-weight').value);
+            const time = parseInt(document.getElementById('burn-time').value);
+            
+            // Estimated MET values
+            const metValues = {
+                'easy run': 8.3,
+                'interval run': 11.0,
+                'endurance run': 9.8,
+                'calisthenics': 8.0,
+                'mixed+dumbbell': 6.0
+            };
+            
+            const met = metValues[type] || 8.0;
+            // Calories Burned = MET * Weight (kg) * (Time in min / 60)
+            const caloriesBurned = met * weight * (time / 60);
+            
+            const resultBox = document.getElementById('burn-result');
+            resultBox.style.display = 'block';
+            resultBox.innerHTML = `
+                <h4 style="color:var(--primary); margin-bottom: 0.5rem;">Estimated Burn:</h4>
+                <p style="font-size: 1.5rem; font-weight: bold;">${Math.round(caloriesBurned)} <span style="font-size: 1rem; font-weight: normal; color: var(--text-muted);">kcal</span></p>
+                <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.2rem;">Based on a MET value of ${met}</p>
+            `;
+        });
+    }
 }
 
 // Rendering Logic
@@ -256,6 +319,21 @@ function renderRecords() {
         div.innerHTML = content;
         recordsList.appendChild(div);
     });
+}
+
+function renderCalculator() {
+    // Attempt to prefill weight from history
+    const sorted = [...trainingEntries].sort((a, b) => new Date(b.date) - new Date(a.date));
+    const weightEntries = sorted.filter(e => e.weight_kg !== null);
+    
+    if (weightEntries.length > 0) {
+        const latestWeight = weightEntries[0].weight_kg;
+        const tdeeWeight = document.getElementById('tdee-weight');
+        const burnWeight = document.getElementById('burn-weight');
+        
+        if (tdeeWeight && !tdeeWeight.value) tdeeWeight.value = latestWeight;
+        if (burnWeight && !burnWeight.value) burnWeight.value = latestWeight;
+    }
 }
 
 // Data Actions
