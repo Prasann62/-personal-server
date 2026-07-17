@@ -30,6 +30,26 @@
         <section id="home" class="view active">
             <h2>Dashboard</h2>
             
+            <div class="settings-card" id="home-calorie-widget" style="margin-top: 0; margin-bottom: 1.5rem; cursor: pointer;" onclick="document.querySelector('.nav-btn[data-target=\'calculator\']').click()">
+                <h3 style="color: var(--primary); display: flex; justify-content: space-between;">
+                    <span>Today's Nutrition</span>
+                    <span style="font-size: 0.8rem; font-weight: normal; color: var(--text-muted); align-self: center;">Tap to Calc</span>
+                </h3>
+                <div style="display: flex; justify-content: space-between; margin-top: 0.8rem; align-items: baseline;">
+                    <div>
+                        <span style="font-size: 1.8rem; font-weight: bold; color: var(--text);" id="home-cals-eaten">0</span>
+                        <span style="font-size: 0.9rem; color: var(--text-muted);"> kcal eaten</span>
+                    </div>
+                    <div style="text-align: right;">
+                        <span style="font-size: 1.2rem; font-weight: bold; color: var(--text-muted);" id="home-cals-goal">--</span>
+                        <span style="font-size: 0.8rem; color: var(--text-muted);"> goal</span>
+                    </div>
+                </div>
+                <div class="progress-container" style="margin-top: 0.8rem; background: var(--border);">
+                    <div class="progress-bar" id="home-cals-bar" style="width: 0%; background: var(--primary);"></div>
+                </div>
+            </div>
+            
             <div class="stats-grid">
                 <div class="stat-card">
                     <h3>Current Weight</h3>

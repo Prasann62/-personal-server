@@ -2,7 +2,8 @@
 let trainingEntries = JSON.parse(localStorage.getItem('trainingEntries')) || [];
 let personalBests = JSON.parse(localStorage.getItem('personalBests')) || {};
 let reminderSettings = JSON.parse(localStorage.getItem('reminderSettings')) || { time: '18:00', enabled: false };
-let currentTDEE = null;
+let dailyNutrition = JSON.parse(localStorage.getItem('dailyNutrition')) || {};
+let currentTDEE = localStorage.getItem('tdeeGoal') ? parseFloat(localStorage.getItem('tdeeGoal')) : null;
 
 // Men's Indian National Records (in seconds)
 const NATIONAL_RECORDS = {
@@ -141,6 +142,8 @@ function setupForms() {
             
             const tdee = bmr * activity;
             currentTDEE = tdee;
+            saveData();
+            renderDashboard();
             
             const resultBox = document.getElementById('tdee-result');
             resultBox.style.display = 'block';
@@ -199,6 +202,11 @@ function setupForms() {
             const snacks = parseFloat(document.getElementById('meal-snacks').value) || 0;
             
             const total = morning + afternoon + dinner + snacks;
+            
+            const todayStr = new Date().toISOString().split('T')[0];
+            dailyNutrition[todayStr] = total;
+            saveData();
+            renderDashboard();
             
             const resultBox = document.getElementById('meal-result');
             resultBox.style.display = 'block';
@@ -293,6 +301,27 @@ function renderDashboard() {
 
     // Streak Logic
     document.getElementById('logging-streak').textContent = `${calculateStreak(sorted)} days`;
+
+    // Calorie Widget Logic
+    const todayStr = new Date().toISOString().split('T')[0];
+    const eatenToday = dailyNutrition[todayStr] || 0;
+    
+    document.getElementById('home-cals-eaten').textContent = Math.round(eatenToday);
+    document.getElementById('home-cals-goal').textContent = currentTDEE ? Math.round(currentTDEE) : '--';
+    
+    let pct = 0;
+    if (currentTDEE && currentTDEE > 0) {
+        pct = (eatenToday / currentTDEE) * 100;
+        if (pct > 100) pct = 100;
+    }
+    const bar = document.getElementById('home-cals-bar');
+    bar.style.width = pct + '%';
+    
+    if (pct >= 100) {
+        bar.style.background = '#ef4444'; // Red if over goal
+    } else {
+        bar.style.background = 'var(--primary)';
+    }
 }
 
 function renderHistory() {
@@ -522,6 +551,8 @@ function saveData() {
     localStorage.setItem('trainingEntries', JSON.stringify(trainingEntries));
     localStorage.setItem('personalBests', JSON.stringify(personalBests));
     localStorage.setItem('reminderSettings', JSON.stringify(reminderSettings));
+    localStorage.setItem('dailyNutrition', JSON.stringify(dailyNutrition));
+    if (currentTDEE) localStorage.setItem('tdeeGoal', currentTDEE);
 }
 
 function calculateStreak(sortedDescEntries) {
